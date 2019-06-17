@@ -45,7 +45,7 @@ Please use HTML frameworks such as Bootstrap, Material or any other. It will sav
 - Name (required);
 - Email (required);
 - Country (required);
-- State (required);
+- State (required );
 - City (required);
 - Phone Number (required);
 - Address (optional);

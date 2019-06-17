@@ -1,0 +1,29 @@
+.b-textfield_error
+{
+	-webkit-box-shadow:		0 0 2px red;
+	box-shadow:		0 0 2px red;
+}
+
+.b-form__message {
+    border: 1px solid;
+    border-radius: 3px;
+    margin: 10px 0;
+    padding: 10px;
+	display: none;
+}
+.b-form__message_error {
+    background: none repeat scroll 0 0 #FF0000;
+    border-color: #E30000;
+    color: #FFFFFF;
+}
+img{
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+.img {
+    
+}

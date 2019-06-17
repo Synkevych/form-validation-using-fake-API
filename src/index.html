@@ -7,14 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Temy Test Environment</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel='stylesheet' href='./css/style.css'>
 </head>
 <body>
     <div class="container">
-        <h1 class="center-block" style="text-align: center;">Hello guais, we ready to shhow you some magic!</h1>
-        <form class="form-horizontal" role="form">
+        <h1 class="center-block" style="text-align: center;">Hello guys, we ready to show you some magic!</h1>
+        <div class='b-form__message b-form__message_error'>
+                Форма заполнена неверно!
+                </div>
+        <form class="form-horizontal" role="form" id="form1">
             <h2 class="center-block" style="text-align: center;">Registration</h2>
             <div class="form-group">
-                <label for="firstName" class="col-sm-3 control-label">Name</label>
+                <label for="firstName" class="col-sm-3 control-label">Name* </label>
                 <div class="col-sm-9">
                     <input type="text" id="firstName" placeholder="Name" class="form-control" autofocus>
                 </div>
@@ -26,65 +30,49 @@
                 </div>
             </div>
             <div class="form-group">
-                    <label for="phoneNumber" class="col-sm-3 control-label">Phone number </label>
+                    <label for="countries" class="col-sm-3 control-label">Coutry* </label>
+                <div class="col-sm-9">
+                    <select id="countries" placeholder="Please write your height in centimetres" class="form-control" required>
+                        <option selected>Choose...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                    <label for="states" class="col-sm-3 control-label">State* </label>
+                <div class="col-sm-9">
+                    <select id="states" class="form-control">
+                      <option selected>Choose...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                    <label for="cities" class="col-sm-3 control-label">City* </label>
+                <div class="col-sm-9">
+                    <select name="cities" id="cities" placeholder="Please choose your city." class="form-control">
+                        <option selected>Choose...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                    <label for="phoneNumber" class="col-sm-3 control-label">Phone number*</label>
                     <div class="col-sm-9">
                         <input type="phoneNumber" id="phoneNumber" placeholder="Phone number" class="form-control">
                         <span class="help-block">Your phone number won't be disclosed anywhere </span>
                     </div>
             </div>
             <div class="form-group">
-                <label for="text" class="col-sm-3 control-label">Address </label>
-                <div class="col-sm-9">
-                    <input type="text" id="address" placeholder="Address" class="form-control" name= "address">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="text" class="col-sm-3 control-label">About </label>
-                <div class="col-sm-9">
-                    <textarea  rows="5" type="text" id="about" placeholder="About" class="form-control" name= "about"></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                    <label for="Height" class="col-sm-3 control-label">Coutry*</label>
-                <div class="col-sm-9">
-                    <input type="number" id="height" placeholder="Please write your height in centimetres" class="form-control">
-                </div>
-            </div>
-             <div class="form-group">
-                    <label for="inputState" class="col-sm-3 control-label">State </label>
-                <div class="col-sm-9">
-                    <select id="inputState" class="form-control">
-                      <option selected>Choose...</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                    </select>
-                </div>
-            </div>
-             <div class="form-group">
-                    <label for="city" class="col-sm-3 control-label">City* </label>
-                <div class="col-sm-9">
-                    <input type="text" name="city" id="weight" placeholder="Please choose your city." class="form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-3">Gender</label>
-                <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <label class="radio-inline">
-                                <input type="radio" id="femaleRadio" value="Female">Female
-                            </label>
-                        </div>
-                        <div class="col-sm-4">
-                            <label class="radio-inline">
-                                <input type="radio" id="maleRadio" value="Male">Male
-                            </label>
-                        </div>
+                    <label for="text" class="col-sm-3 control-label">Address </label>
+                    <div class="col-sm-9">
+                        <input type="text" id="address" placeholder="Address" class="form-control" name= "address">
                     </div>
                 </div>
-            </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <label for="text" class="col-sm-3 control-label">About </label>
+                    <div class="col-sm-9">
+                        <textarea  rows="5" type="text" id="about" placeholder="About" class="form-control" name= "about"></textarea>
+                    </div>
+                </div>
+            <!-- /.form-group -->
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">
                     <span class="help-block">*Required fields</span>
@@ -97,6 +85,9 @@
         </div>
         </form> <!-- /form -->
     </div> <!-- ./container -->
-   <script src="../script.js"></script>
+   <script src="./js/script.js"></script>
+   <script>
+ //       let f1 = new FormChecker("#form1");
+   </script>
 </body>
 </html>
