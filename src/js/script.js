@@ -1,23 +1,93 @@
-// JSON.parse('{"1": 1, "2": 2, "3": {"4": 4, "5": {"6": 6}}}');
-
-// using for parce data from JSON to object
-const form = document.getElementById('form1');
-const input = document.getElementsByClassName('form-control');
+const regexps = {
+  name: '^[a-zA-Z\\s]{2,20}',
+  email: '^[a-zA-Z\\.\\@]{5,500}',
+  tel: '[d]{10,12}',
+  address: '\\w\\d\\W\\s',
+  about: '\\W\\w\\d\\s'
+};
+const forms = document.getElementById('form1');
+const formsElement = document.getElementsByClassName('form-control');
 const country = document.getElementById('country');
 const usersURL = 'http://localhost:3000/users';
-const submit = document.getElementsByClassName('btn');;
-console.log(submit);
+const submit = document.getElementsByClassName('btn');
+let formData = {
+  id: '',
+  name: '',
+  email: '',
+  country_id: '',
+  state_id: '',
+  city_id: '',
+  phone_number: '',
+  address: '',
+  about_me: '',
+  createdAt: null
+};
+
+for (let i = 0; i < forms.length; i++) {
+  forms[i].setAttribute('novalidate', true);
+}
+
+// Listen to all blur events
+document.addEventListener(
+  'blur',
+  function(event) {
+    // formChecker(formsElement);
+  },
+  true
+);
+
+function formChecker(element) {
+  for (let i = 0; i < element.length - 1; i++) {
+    if (element[i].tagName === 'INPUT' || element[i].tagName === 'TEXTAREA') {
+      let pattern = new RegExp(regexps[element[i].name]);
+      let isValid = element[i].value.match(pattern);
+
+      if (isValid !== null) {
+        console.log('valid', element[i].name, isValid);
+        formData[element[i].name] = element[i].value;
+
+      } else {
+
+        if (element[i].name == 'address' || element[i].name == 'about_me') {
+          console.log('not valid', element[i].name, isValid);
+          formData[element[i].name] = null;
+
+        } else {
+          console.log('not valid', element[i].name, isValid);
+          element[i].classList.add('error');
+        }
+      }
+    }
+    if (element[i].tagName === 'SELECT') {
+      let selectValue = element[i][element[i].selectedIndex].value;
+
+      if (selectValue > 0) {
+        formData[element[i].name] = selectValue;
+      } else {
+        element[i].classList.add('error');
+      //  return false;
+      }
+    }
+  }
+}
+
 let user = {
   name: 'Roman Synkevych',
   email: 'john.smith@gmail.com',
   phone_number: '380681234567'
 };
-user.createdAt = new Date().getTime();
-submit[0].addEventListener('click', function(evt){ evt.preventDefault(); postUsers(user, usersURL)});
 
-function renderElement(tag, value, optionId) {
+//postUsers(user, usersURL)
+user.createdAt = new Date().getTime();
+submit[0].addEventListener('click', function(evt) {
+  evt.preventDefault();
+  formChecker(formsElement);
+  console.log(formData);
+});
+
+function renderElement(tag, value, id) {
   const tagName = document.getElementById('' + tag);
-  tagName.innerHTML += `<option name=${optionId}>${value}</option>`;
+  tagName.innerHTML += `<option name=${value} value=${id}>${value}</option>`;
 }
 
 function getStates(tagName) {
@@ -51,7 +121,7 @@ getStates('cities');
 //
 
 function postUsers(user, url) {
-    console.log(user, url);
+  console.log(user, url);
   var json = JSON.stringify(user);
 
   var xhr = new XMLHttpRequest();
@@ -131,7 +201,7 @@ class FormChecker {
   }
 }
 let f = new FormChecker('#form1');
-console.log(f.sSelector);
+// console.log(f.sSelector);
 
 // class getFormValue{
 //     constructor(){

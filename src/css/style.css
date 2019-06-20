@@ -1,29 +1,33 @@
-.b-textfield_error
-{
-	-webkit-box-shadow:		0 0 2px red;
-	box-shadow:		0 0 2px red;
+.b-textfield_error {
+  -webkit-box-shadow: 0 0 2px red;
+  box-shadow: 0 0 2px red;
 }
 
 .b-form__message {
-    border: 1px solid;
-    border-radius: 3px;
-    margin: 10px 0;
-    padding: 10px;
-	display: none;
+  border: 1px solid;
+  border-radius: 3px;
+  margin: 10px 0;
+  padding: 10px;
+  display: none;
 }
 .b-form__message_error {
-    background: none repeat scroll 0 0 #FF0000;
-    border-color: #E30000;
-    color: #FFFFFF;
-}
-img{
-    margin: 0;
-    padding: 0;
+  background: none repeat scroll 0 0 #ff0000;
+  border-color: #e30000;
+  color: #ffffff;
 }
 
+input:required:focus:invalid {
+  border: 2px dashed red;
+}
+input:required:focus:valid {
+  border: 2px solid green;
+}
+.error {
+    border-color: red;
+}
 
-
-
-.img {
-    
+.error-message {
+    color: red;
+    font-style: italic;
+    margin-bottom: 1em;
 }

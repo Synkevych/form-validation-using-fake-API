@@ -31,10 +31,14 @@
           <div class="col-sm-9">
             <input
               type="text"
-              id="firstName"
+              name="name"
+              pattern="[A-Za-z\s]{2,}"
+              id="name"
               placeholder="Name"
               class="form-control"
+              title="Only english letter!"
               autofocus
+              required
             />
           </div>
         </div>
@@ -42,11 +46,13 @@
           <label for="email" class="col-sm-3 control-label">Email* </label>
           <div class="col-sm-9">
             <input
+              name="email"
               type="email"
               id="email"
               placeholder="Email"
               class="form-control"
-              name="email"
+              title="Enter a valid email address"
+              required
             />
           </div>
         </div>
@@ -55,19 +61,20 @@
           <div class="col-sm-9">
             <select
               id="countries"
+              name="country_id"
               placeholder="Please write your height in centimetres"
               class="form-control"
               required
             >
-              <option selected>Choose...</option>
+              <option selected disabled="disabled" value="">Choose...</option>
             </select>
           </div>
         </div>
         <div class="form-group">
           <label for="states" class="col-sm-3 control-label">State* </label>
           <div class="col-sm-9">
-            <select id="states" class="form-control">
-              <option selected>Choose...</option>
+            <select id="states" name="state_id" class="form-control" required>
+              <option selected disabled="disabled" value="">Choose...</option>
             </select>
           </div>
         </div>
@@ -75,50 +82,51 @@
           <label for="cities" class="col-sm-3 control-label">City* </label>
           <div class="col-sm-9">
             <select
-              name="cities"
+              name="city_id"
               id="cities"
               placeholder="Please choose your city."
               class="form-control"
+              required
             >
-              <option selected>Choose...</option>
+              <option disabled="disabled" selected value="">Choose...</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label for="phoneNumber" class="col-sm-3 control-label"
-            >Phone number*</label
-          >
+          <label for="tel" class="col-sm-3 control-label">Phone number*</label>
           <div class="col-sm-9">
             <input
-              type="phoneNumber"
-              id="phoneNumber"
+              type="tel"
+              name="phone_number"
+              id="tel"
               placeholder="Phone number"
               class="form-control"
+              pattern="[0-9]{10,12}"
+              title="Ten or twelve digit only!"
+              required
             />
-            <span class="help-block"
-              >Your phone number won't be disclosed anywhere
-            </span>
           </div>
         </div>
         <div class="form-group">
-          <label for="text" class="col-sm-3 control-label">Address </label>
+          <label for="address" class="col-sm-3 control-label">Address </label>
           <div class="col-sm-9">
             <input
+              name="address"
               type="text"
               id="address"
               placeholder="Address"
               class="form-control"
-              name="address"
             />
           </div>
         </div>
         <div class="form-group">
-          <label for="text" class="col-sm-3 control-label">About </label>
+          <label for="about_me" class="col-sm-3 control-label">About </label>
           <div class="col-sm-9">
             <textarea
+              name="about_me"
               rows="5"
               type="text"
-              id="about"
+              id="about_me"
               placeholder="About"
               class="form-control"
               name="about"
