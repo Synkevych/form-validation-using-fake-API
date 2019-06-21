@@ -35,18 +35,27 @@
   color: #ffffff;
 }
 
-input:required:focus:invalid {
-  border: 2px dashed red;
-}
+
 input:required:focus:valid {
   border: 2px solid green;
 }
+
 .error {
   border-color: red;
 }
+
 
 .error-message {
   color: red;
   font-style: italic;
   margin-bottom: 1em;
+}
+.result-message {
+  background-color: #ff4136;
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

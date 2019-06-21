@@ -1,13 +1,13 @@
 const regexps = {
-  name: '^[a-zA-Z]{2,500}',
-  email: '^[a-zA-Z\\@]{5,500}',
+  name: '[a-zA-Z\\s]{2,500}',
+  email: '[\\da-zA-Z\\@\\.]{5,500}',
   phone_number: '^[\\d]{10,12}',
-  address: '',
+  address: '[\\W\\w\\d\\s]{0,500}',
   about_me: '[\\W\\w\\d\\s]{0,500}'
 };
 const forms = document.getElementById('form1');
 const formsElement = document.getElementsByClassName('form-control');
-const usersURL = 'http://localhost:3000/users';
+const apiUrl = 'http://localhost:3000/';
 const submit = document.getElementsByClassName('btn');
 const lacation = {
   countries: '',
@@ -36,19 +36,21 @@ for (let i = 0; i < forms.length; i++) {
 document.addEventListener(
   'blur',
   function(event) {
-    // formChecker(formsElement);
+    console.log(event);
+    event.target.classList.remove('error');
   },
   true
 );
 
 function formChecker(elem) {
   for (let i = 0; i < elem.length - 1; i++) {
+   // elem[i].classList.remove('error');
     let nameElem = elem[i].name;
     if (elem[i].tagName === 'INPUT' || elem[i].tagName === 'TEXTAREA') {
       let pattern = new RegExp(regexps[nameElem]);
       let isValid = elem[i].value.match(pattern);
 
-      if (isValid !== null) {
+      if (isValid !== null && isValid[0] == isValid.input) {
         console.log('valid', pattern, nameElem, isValid);
         formData[nameElem] = elem[i].value;
       } else {
@@ -59,9 +61,10 @@ function formChecker(elem) {
       }
     }
     if (elem[i].tagName === 'SELECT') {
-      let selectValue = elem[i][elem[i].selectedIndex].value;
+      let selectValue = elem[i][elem[i].selectedIndex].text;
+      console.log(elem[i][elem[i].selectedIndex].text);
 
-      if (selectValue > 0) {
+      if (elem[i][elem[i].selectedIndex].value > 0) {
         formData[nameElem] = selectValue;
       } else {
         elem[i].classList.add('error');
@@ -71,30 +74,40 @@ function formChecker(elem) {
     }
   }
   formData.createdAt = new Date().getTime();
-  formData.id = + lacation.users.length;
+  formData.id = +lacation.users.length;
+  return formData;
 }
 
 submit[0].addEventListener('click', function(evt) {
   evt.preventDefault();
-  formChecker(formsElement);
+  if (!!formChecker(formsElement)){
+  //  sendUsers(formChecker(formsElement), apiUrl + 'users');
+  }
   console.log(formData);
 });
 
 function renderElement(tag, value, id) {
   const tagName = document.getElementById('' + tag);
-  tagName.innerHTML += `<option name=${value} value=${id}>${value}</option>`;
+  tagName.innerHTML += `<option value=${id}>${value}</option>`;
+}
+
+function renderResult(value,message){
+    const tagName = document.getElementById('container');
+    tagName.innerHTML += `<div class="result-message">${value}
+    ${message}
+    </div>`;
 }
 
 function getStates(tagName) {
   const oReq = new XMLHttpRequest();
-  const responseData = {};
   oReq.addEventListener('load', reqListener);
-  oReq.open('GET', 'http://localhost:3000/' + tagName);
+  oReq.open('GET', apiUrl + tagName);
   oReq.send();
 
   function reqListener() {
     if (oReq.status !== 200) {
       console.log('Error ', oReq.status + ': ' + oReq.statusText);
+      renderResult("Error");
     } else {
       // вывести результат
       lacation[tagName] = JSON.parse(this.responseText);
@@ -102,7 +115,7 @@ function getStates(tagName) {
         lacation[tagName].map(state => {
           renderElement(tagName, state.name, state.id);
         });
-      } 
+      }
     }
   }
 }
@@ -113,7 +126,7 @@ getStates('cities');
 getStates('users');
 console.log(lacation);
 
-function postUsers(user, url) {
+function sendUsers(user, url) {
   console.log(user, url);
   var json = JSON.stringify(user);
 
@@ -129,4 +142,5 @@ function postUsers(user, url) {
     }
   };
   xhr.send(json);
+  getStates('users'+user.id);
 }

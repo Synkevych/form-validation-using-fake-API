@@ -18,9 +18,9 @@
   </head>
   <body>
     <header class="header">
-    <h1 class="center-block" style="text-align: center;">
-      Hello it's Roman, please fill this form!
-    </h1>
+      <h1 class="center-block" style="text-align: center;">
+        Hello it's Roman, please fill this form!
+      </h1>
     </header>
     <div class="container">
       <div class="b-form__message b-form__message_error">
@@ -36,7 +36,7 @@
             <input
               type="text"
               name="name"
-              pattern="[A-Za-z\\s]{2,500}"
+              pattern="[A-Za-z\s]{2,500}"
               id="name"
               placeholder="Name"
               class="form-control"
@@ -55,7 +55,7 @@
               id="email"
               placeholder="Email"
               class="form-control"
-              pattern="[A-Za-z\\@\\.]{3,500}"
+              pattern="[a-zA-Z]{,500}"
               title="Enter a valid email address"
               required
             />
@@ -121,6 +121,7 @@
               id="address"
               placeholder="Address"
               class="form-control"
+              pattern="[\W\w\d\s]{0,500}"
             />
           </div>
         </div>
@@ -134,6 +135,7 @@
               id="about_me"
               placeholder="About"
               class="form-control"
+              pattern="[\W\w\d\s]{0,500}"
               name="about"
             ></textarea>
           </div>
