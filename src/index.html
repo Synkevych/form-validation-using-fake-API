@@ -17,22 +17,26 @@
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
+    <header class="header">
+    <h1 class="center-block" style="text-align: center;">
+      Hello it's Roman, please fill this form!
+    </h1>
+    </header>
     <div class="container">
-      <h1 class="center-block" style="text-align: center;">
-        Hello guys, we ready to show you some magic!
-      </h1>
       <div class="b-form__message b-form__message_error">
         Форма заполнена неверно!
       </div>
       <form class="form-horizontal" role="form" id="form1">
-        <h2 class="center-block" style="text-align: center;">Registration</h2>
+        <h2 class="center-block" style="text-align: center;">
+          Registration form
+        </h2>
         <div class="form-group">
           <label for="firstName" class="col-sm-3 control-label">Name* </label>
           <div class="col-sm-9">
             <input
               type="text"
               name="name"
-              pattern="[A-Za-z\s]{2,}"
+              pattern="[A-Za-z\\s]{2,500}"
               id="name"
               placeholder="Name"
               class="form-control"
@@ -51,6 +55,7 @@
               id="email"
               placeholder="Email"
               class="form-control"
+              pattern="[A-Za-z\\@\\.]{3,500}"
               title="Enter a valid email address"
               required
             />

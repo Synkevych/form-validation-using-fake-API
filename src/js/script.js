@@ -1,15 +1,20 @@
 const regexps = {
-  name: '^[a-zA-Z\\s]{2,20}',
-  email: '^[a-zA-Z\\.\\@]{5,500}',
-  tel: '[d]{10,12}',
-  address: '\\w\\d\\W\\s',
-  about: '\\W\\w\\d\\s'
+  name: '^[a-zA-Z]{2,500}',
+  email: '^[a-zA-Z\\@]{5,500}',
+  phone_number: '^[\\d]{10,12}',
+  address: '',
+  about_me: '[\\W\\w\\d\\s]{0,500}'
 };
 const forms = document.getElementById('form1');
 const formsElement = document.getElementsByClassName('form-control');
-const country = document.getElementById('country');
 const usersURL = 'http://localhost:3000/users';
 const submit = document.getElementsByClassName('btn');
+const lacation = {
+  countries: '',
+  states: '',
+  cities: '',
+  users: ''
+};
 let formData = {
   id: '',
   name: '',
@@ -18,8 +23,8 @@ let formData = {
   state_id: '',
   city_id: '',
   phone_number: '',
-  address: '',
-  about_me: '',
+  address: null,
+  about_me: null,
   createdAt: null
 };
 
@@ -36,49 +41,39 @@ document.addEventListener(
   true
 );
 
-function formChecker(element) {
-  for (let i = 0; i < element.length - 1; i++) {
-    if (element[i].tagName === 'INPUT' || element[i].tagName === 'TEXTAREA') {
-      let pattern = new RegExp(regexps[element[i].name]);
-      let isValid = element[i].value.match(pattern);
+function formChecker(elem) {
+  for (let i = 0; i < elem.length - 1; i++) {
+    let nameElem = elem[i].name;
+    if (elem[i].tagName === 'INPUT' || elem[i].tagName === 'TEXTAREA') {
+      let pattern = new RegExp(regexps[nameElem]);
+      let isValid = elem[i].value.match(pattern);
 
       if (isValid !== null) {
-        console.log('valid', element[i].name, isValid);
-        formData[element[i].name] = element[i].value;
-
+        console.log('valid', pattern, nameElem, isValid);
+        formData[nameElem] = elem[i].value;
       } else {
-
-        if (element[i].name == 'address' || element[i].name == 'about_me') {
-          console.log('not valid', element[i].name, isValid);
-          formData[element[i].name] = null;
-
-        } else {
-          console.log('not valid', element[i].name, isValid);
-          element[i].classList.add('error');
-        }
+        console.log('not valid', nameElem, isValid);
+        elem[i].classList.add('error');
+        elem[i].focus();
+        return false;
       }
     }
-    if (element[i].tagName === 'SELECT') {
-      let selectValue = element[i][element[i].selectedIndex].value;
+    if (elem[i].tagName === 'SELECT') {
+      let selectValue = elem[i][elem[i].selectedIndex].value;
 
       if (selectValue > 0) {
-        formData[element[i].name] = selectValue;
+        formData[nameElem] = selectValue;
       } else {
-        element[i].classList.add('error');
-      //  return false;
+        elem[i].classList.add('error');
+        elem[i].focus();
+        return false;
       }
     }
   }
+  formData.createdAt = new Date().getTime();
+  formData.id = + lacation.users.length;
 }
 
-let user = {
-  name: 'Roman Synkevych',
-  email: 'john.smith@gmail.com',
-  phone_number: '380681234567'
-};
-
-//postUsers(user, usersURL)
-user.createdAt = new Date().getTime();
 submit[0].addEventListener('click', function(evt) {
   evt.preventDefault();
   formChecker(formsElement);
@@ -92,24 +87,22 @@ function renderElement(tag, value, id) {
 
 function getStates(tagName) {
   const oReq = new XMLHttpRequest();
-  const states = {};
+  const responseData = {};
   oReq.addEventListener('load', reqListener);
   oReq.open('GET', 'http://localhost:3000/' + tagName);
   oReq.send();
 
   function reqListener() {
     if (oReq.status !== 200) {
-      // обработать ошибку
-      console.log('Error ', oReq.status + ': ' + oReq.statusText); // пример вывода: 404: Not Found
+      console.log('Error ', oReq.status + ': ' + oReq.statusText);
     } else {
       // вывести результат
-      this.states = JSON.parse(this.responseText);
-      this.states.map(state => {
-        renderElement(tagName, state.name, state.id);
-        // console.log(state.name);
-      });
-      // console.log('Response Text', oReq.responseText ); // responseText -- текст ответа.
-      // console.log('States', this,states); // responseText -- текст ответа.
+      lacation[tagName] = JSON.parse(this.responseText);
+      if (tagName != 'users') {
+        lacation[tagName].map(state => {
+          renderElement(tagName, state.name, state.id);
+        });
+      } 
     }
   }
 }
@@ -117,8 +110,8 @@ function getStates(tagName) {
 getStates('states');
 getStates('countries');
 getStates('cities');
-
-//
+getStates('users');
+console.log(lacation);
 
 function postUsers(user, url) {
   console.log(user, url);
@@ -137,109 +130,3 @@ function postUsers(user, url) {
   };
   xhr.send(json);
 }
-
-class FormChecker {
-  constructor(sSelector) {
-    /// знайти и прописати в форму sSelector
-    this.sSelector = sSelector;
-    this.textFields = document.getElementsByClassName('.form-control'); // массив текстових полей
-    this.errorMesage = document.getElementsByClassName(
-      '.b-form__message_error'
-    ); // див с сообщением об ошибке
-    //метод проверки всех полей
-    // this.elem.submit(this.checkTextFields.bind(this));
-    //на текстовие поля на событе потеря фокуса назначаем метод проверки одного поля
-    //this.textFields.blur(this.checkTextField.bind(this));
-  }
-  getname() {
-    console.log(this.sSelector);
-  }
-  checkTextFields(event) {
-    event.preventDefault();
-    let formError = false,
-      f = this;
-    this.textFields.each(function() {
-      console.log('this ', this);
-      let currentTextfield = $(this),
-        textfieldError = f.checkTextField(currentTextfield);
-      if (textfieldError) {
-        formError = true;
-      }
-    });
-    let effect = formError ? 'slideDown' : 'slideUp';
-    f.errorMesage[effect]();
-  }
-
-  //метод проверки одного поля
-  checkTextField(textField) {
-    /* 
-        this поле которое потеряло фокус (метод  f.checkTextField был вызван в момент, когда пользователь перешел на следующее поле)
-        textField - поле из масива полей которое нужно проверить при нажатия пользователем кнопки формы (метод f.checkTextField был вызван из цикла для перебора всех полей формы метода f.checkTextFields)
-    */
-    let currentTextField = textField.length ? textField : $(event.target),
-      // console.log('currentTextField = '+currentTextField);
-
-      currentTextFieldContent = currentTextField.val(),
-      //   // console.log('currentTextFieldContent : '+currentTextFieldContent);
-      settings = {
-        regexps: {
-          name: '^[a-zA-Zа-яА-Я\\-]{2,20}$', // буквы разн регистр, пробел, -
-          brand: '^[a-zA-Z]{2,20}$', // лат буквы 2,20
-          price: '^[0-9]{1,5}(\\.[0-9]{1,2})?$', // цена
-          description: '^.+$' // любые символы (без пер строки) от 1 и более
-        }
-      },
-      currentRegExp = new RegExp(
-        settings['regexps'][currentTextField.attr('name')]
-      ),
-      textfieldError = !currentTextFieldContent.match(currentRegExp);
-
-    currentTextField.toggleClass('b-textfield_error', textfieldError);
-
-    console.log($(event.target).attr('class'));
-    return textfieldError;
-  }
-}
-let f = new FormChecker('#form1');
-// console.log(f.sSelector);
-
-// class getFormValue{
-//     constructor(){
-
-//     }
-// }
-
-// class FackeAPI {
-//     constructor(reqAnswer,name,email,phone_number,address,about_me,country_id,state_id,city_id,){
-//         this.reqAnswer = reqAnswer;
-//         this.name = name;
-//         this.email = email;
-//         this.phone_number = phone_number;
-//         this.address = address;
-//         this.about_me = about_me;
-//         this.country_id = country_id;
-//         this.state_id = state_id;
-//         this.city_id = city_id;
-//     }
-//     getUser(){
-//         const oReq = new XMLHttpRequest();
-//         oReq.addEventListener("load", reqListener);
-//         oReq.open("GET", "http://localhost:3000/users");
-//         oReq.send();
-
-//         function reqListener () {
-//             console.log("result:", JSON.parse(this.responseText)); // responseText -- текст ответа.
-//             if (oReq.status !== 200) {
-//                 // обработать ошибку
-//                 console.log( "Error ",oReq.status + ': ' + oReq.statusText ); // пример вывода: 404: Not Found
-//               } else {
-//                 // вывести результат
-//                 this.reqAnswer = this.responseText;
-//                 console.log('Response Text', oReq.responseText ); // responseText -- текст ответа.
-//             }
-//           }
-//     }
-// }
-// let newUser = new FackeAPI();
-// newUser.getUser();
-// console.log(newUser.reqAnswer);
