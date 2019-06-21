@@ -5,17 +5,13 @@ const regexps = {
   address: '[\\W\\w\\d\\s]{1,500}',
   about_me: '[\\W\\w\\d\\s]{1,500}'
 };
-const forms = document.getElementById('form1');
-const formsElement = document.getElementsByClassName('form-control');
-const apiUrl = 'http://localhost:3000/';
-const submit = document.getElementsByClassName('btn');
 const lacation = {
   countries: '',
   states: '',
   cities: '',
   users: ''
 };
-let formData = {
+const formData = {
   id: '',
   name: '',
   email: '',
@@ -27,15 +23,17 @@ let formData = {
   about_me: null,
   createdAt: null
 };
-
-for (let i = 0; i < forms.length; i++) {
-  forms[i].setAttribute('novalidate', true);
-}
+const forms = document.getElementById('form1');
+const formsElement = document.getElementsByClassName('form-control');
+const apiUrl = 'http://localhost:3000/';
+const submit = document.getElementsByClassName('btn');
 
 document.addEventListener(
   'blur',
   function(event) {
-    setTimeout(()=>{event.target.classList.remove('error')}, 1000);
+    setTimeout(() => {
+      event.target.classList.remove('error');
+    }, 1000);
   },
   true
 );
@@ -51,7 +49,12 @@ function formChecker(elem) {
       if (isValid !== null && isValid[0] == isValid.input) {
         formData[nameElem] = elem[i].value;
       } else {
-        if (!(nameElem == 'address' || (nameElem == 'about_me' &&  elem[i].value == ""))) {
+        if (
+          !(
+            nameElem == 'address' ||
+            (nameElem == 'about_me' && elem[i].value == '')
+          )
+        ) {
           elem[i].classList.add('error');
           elem[i].focus();
           return false;
@@ -91,10 +94,10 @@ function getStates(tagName) {
   function reqListener() {
     if (oReq.status !== 200) {
       alert(
-        'Sorry 😔, we had difficulties with uploading data from server, try again later 😉.'
+        'Sorry 😔, we had difficulties with downloading data from server, try again later 😉.'
       );
     } else {
-      // вывести результат
+
       lacation[tagName] = JSON.parse(this.responseText);
       if (tagName != 'users') {
         lacation[tagName].map(state => {
@@ -103,6 +106,11 @@ function getStates(tagName) {
       }
     }
   }
+}
+
+function renderElement(tag, value, id) {
+  const tagName = document.getElementById('' + tag);
+  tagName.innerHTML += `<option value=${id}>${value}</option>`;
 }
 
 getStates('states');
@@ -125,9 +133,4 @@ function sendUsers(user, url) {
   };
   xhr.send(json);
   alert('Your data has been sent!');
-}
-
-function renderElement(tag, value, id) {
-  const tagName = document.getElementById('' + tag);
-  tagName.innerHTML += `<option value=${id}>${value}</option>`;
 }
