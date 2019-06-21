@@ -23,9 +23,6 @@
       </h1>
     </header>
     <div class="container">
-      <div class="b-form__message b-form__message_error">
-        Форма заполнена неверно!
-      </div>
       <form class="form-horizontal" role="form" id="form1">
         <h2 class="center-block" style="text-align: center;">
           Registration form
@@ -36,11 +33,11 @@
             <input
               type="text"
               name="name"
-              pattern="[A-Za-z\s]{2,500}"
+              pattern="[A-Za-z\s]{1,500}"
               id="name"
               placeholder="Name"
               class="form-control"
-              title="Only english letter!"
+              title="Only English letter!"
               autofocus
               required
             />
@@ -55,7 +52,7 @@
               id="email"
               placeholder="Email"
               class="form-control"
-              pattern="[a-zA-Z]{,500}"
+              pattern="[^@]+@[^.]+..+"
               title="Enter a valid email address"
               required
             />
@@ -137,6 +134,7 @@
               class="form-control"
               pattern="[\W\w\d\s]{0,500}"
               name="about"
+              title="Only 500 characters are available!"
             ></textarea>
           </div>
         </div>

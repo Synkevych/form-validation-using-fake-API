@@ -4,22 +4,12 @@
   border-radius: 1.5rem;
   margin-bottom: 80px;
   padding: 0 20px;
+  background: #f9f9f9;
 }
 .header {
   margin-bottom: 40px;
 }
-.b-textfield_error {
-  -webkit-box-shadow: 0 0 2px red;
-  box-shadow: 0 0 2px red;
-}
 
-.b-form__message {
-  border: 1px solid;
-  border-radius: 3px;
-  margin: 10px 0;
-  padding: 10px;
-  display: none;
-}
 .btn {
   border: none;
   border-radius: 1.5rem;
@@ -35,15 +25,13 @@
   color: #ffffff;
 }
 
-
 input:required:focus:valid {
   border: 2px solid green;
 }
 
-.error {
+.error:focus {
   border-color: red;
 }
-
 
 .error-message {
   color: red;
@@ -57,5 +45,9 @@ input:required:focus:valid {
   position: absolute;
   left: 50%;
   top: 50%;
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+input[type='text'][title]:focus:invalid {
+  display: inline;
 }
