@@ -74,7 +74,7 @@ function formChecker(elem) {
     }
   }
   formData.createdAt = new Date().getTime();
-  formData.id = +lacation.users.length;
+  formData.id = +lacation.users.length+1;
   return formData;
 }
 
@@ -91,7 +91,7 @@ function getStates(tagName) {
   oReq.open('GET', apiUrl + tagName);
   oReq.send();
 
-  function reqListener() {
+  function reqListener() {  
     if (oReq.status !== 200) {
       alert(
         'Sorry 😔, we had difficulties with downloading data from server, try again later 😉.'
