@@ -1,147 +1,136 @@
+const regexps = {
+  name: '[a-zA-Z\\s]{1,500}',
+  email: '[^@]+@[^.]+..+',
+  phone_number: '^[\\d]{10,12}',
+  address: '[\\W\\w\\d\\s]{1,500}',
+  about_me: '[\\W\\w\\d\\s]{1,500}'
+};
+const lacation = {
+  countries: '',
+  states: '',
+  cities: '',
+  users: ''
+};
+const formData = {
+  id: '',
+  name: '',
+  email: '',
+  country_id: '',
+  state_id: '',
+  city_id: '',
+  phone_number: '',
+  address: null,
+  about_me: null,
+  createdAt: null
+};
+const forms = document.getElementById('form1');
+const formsElement = document.getElementsByClassName('form-control');
+const apiUrl = 'http://localhost:3000/';
+const submit = document.getElementsByClassName('btn');
 
-// JSON.parse('{"1": 1, "2": 2, "3": {"4": 4, "5": {"6": 6}}}');
+document.addEventListener(
+  'blur',
+  function(event) {
+    setTimeout(() => {
+      event.target.classList.remove('error');
+    }, 1000);
+  },
+  true
+);
 
-// using for parce data from JSON to object
-const form = document.getElementById('form1');
-const input  = document.getElementsByClassName('form-control');
-const country = document.getElementById('country');
+function formChecker(elem) {
+  for (let i = 0; i < elem.length - 1; i++) {
+    let nameElem = elem[i].name;
 
-function renderElement(tag, value, optionId){
-    const tagName = document.getElementById(''+tag);
-    tagName.innerHTML += `<option name=${optionId}>${value}</option>`;
-}
+    if (elem[i].tagName === 'INPUT' || elem[i].tagName === 'TEXTAREA') {
+      let pattern = new RegExp(regexps[nameElem]);
+      let isValid = elem[i].value.match(pattern);
 
-
-function getStates(tagName){
-    const oReq = new XMLHttpRequest();
-    const states = {};
-    oReq.addEventListener("load", reqListener);
-    oReq.open("GET", "http://localhost:3000/" + tagName);
-    oReq.send();
-
-    function reqListener () {
-        console.log("result:", JSON.parse(this.responseText)); // responseText -- текст ответа.
-        if (oReq.status !== 200) {
-            // обработать ошибку
-            console.log( "Error ",oReq.status + ': ' + oReq.statusText ); // пример вывода: 404: Not Found
-          } else {
-            // вывести результат
-            this.states = JSON.parse(this.responseText);
-            this.states.map(state => {
-                renderElement(tagName, state.name, state.id);
-                console.log(state.name);
-            })
-           // console.log('Response Text', oReq.responseText ); // responseText -- текст ответа.
-           // console.log('States', this,states); // responseText -- текст ответа.
+      if (isValid !== null && isValid[0] == isValid.input) {
+        formData[nameElem] = elem[i].value;
+      } else {
+        if (
+          !(
+            nameElem == 'address' ||
+            (nameElem == 'about_me' && elem[i].value == '')
+          )
+        ) {
+          elem[i].classList.add('error');
+          elem[i].focus();
+          return false;
         }
       }
+    }
+    if (elem[i].tagName === 'SELECT') {
+      let selectValue = elem[i][elem[i].selectedIndex].text;
+
+      if (elem[i][elem[i].selectedIndex].value > 0) {
+        formData[nameElem] = selectValue;
+      } else {
+        elem[i].classList.add('error');
+        elem[i].focus();
+        return false;
+      }
+    }
+  }
+  formData.createdAt = new Date().getTime();
+  formData.id = +lacation.users.length+1;
+  return formData;
+}
+
+submit[0].addEventListener('click', function(evt) {
+  evt.preventDefault();
+  if (!!formChecker(formsElement)) {
+    sendUsers(formChecker(formsElement), apiUrl + 'users');
+  }
+});
+
+function getStates(tagName) {
+  const oReq = new XMLHttpRequest();
+  oReq.addEventListener('load', reqListener);
+  oReq.open('GET', apiUrl + tagName);
+  oReq.send();
+
+  function reqListener() {  
+    if (oReq.status !== 200) {
+      alert(
+        'Sorry 😔, we had difficulties with downloading data from server, try again later 😉.'
+      );
+    } else {
+
+      lacation[tagName] = JSON.parse(this.responseText);
+      if (tagName != 'users') {
+        lacation[tagName].map(state => {
+          renderElement(tagName, state.name, state.id);
+        });
+      }
+    }
+  }
+}
+
+function renderElement(tag, value, id) {
+  const tagName = document.getElementById('' + tag);
+  tagName.innerHTML += `<option value=${id}>${value}</option>`;
 }
 
 getStates('states');
 getStates('countries');
 getStates('cities');
+getStates('users');
 
+function sendUsers(user, url) {
+  var json = JSON.stringify(user);
 
-class FormChecker{
-    constructor(sSelector){
- /// знайти и прописати в форму sSelector
-      this.sSelector = sSelector;
-      this.textFields = document.getElementsByClassName(".form-control"); // массив текстових полей
-      this.errorMesage = document.getElementsByClassName(".b-form__message_error"); // див с сообщением об ошибке
-      //метод проверки всех полей
-      // this.elem.submit(this.checkTextFields.bind(this));
-      //на текстовие поля на событе потеря фокуса назначаем метод проверки одного поля
-      //this.textFields.blur(this.checkTextField.bind(this));
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  xhr.onload = function() {
+    if (xhr.readyState !== 4 && xhr.status !== '200') {
+      alert(
+        'Sorry 😔, we had difficulties with uploading data to the server, try again later ... 😉'
+      );
     }
-    getname(){
-        console.log(this.sSelector);
-    }
-    checkTextFields(event){
-        event.preventDefault();
-        let formError = false,
-            f = this;
-        this.textFields.each(function(){
-          console.log("this ", this, );
-           let currentTextfield = $(this)
-           ,textfieldError = f.checkTextField(currentTextfield)
-           ;
-            if(textfieldError){
-                formError = true;
-            };
-        });
-        let effect = formError ? "slideDown" : "slideUp";
-        f.errorMesage[effect]();
-    }
-
-    //метод проверки одного поля
-    checkTextField(textField){
-        /* 
-        this поле которое потеряло фокус (метод  f.checkTextField был вызван в момент, когда пользователь перешел на следующее поле)
-        textField - поле из масива полей которое нужно проверить при нажатия пользователем кнопки формы (метод f.checkTextField был вызван из цикла для перебора всех полей формы метода f.checkTextFields)
-    */
-        let currentTextField = textField.length ? textField : $(event.target),
-       // console.log('currentTextField = '+currentTextField);
-
-        currentTextFieldContent = currentTextField.val(),
-     //   // console.log('currentTextFieldContent : '+currentTextFieldContent);
-        settings = {
-           regexps : {
-               "name": "^[a-zA-Zа-яА-Я\\-]{2,20}$" // буквы разн регистр, пробел, -
-           ,   "brand": "^[a-zA-Z]{2,20}$" // лат буквы 2,20
-           ,   "price": "^[0-9]{1,5}(\\.[0-9]{1,2})?$" // цена
-           ,   "description": "^.+$" // любые символы (без пер строки) от 1 и более
-       }
-     },
-       currentRegExp = new  RegExp(settings["regexps"][currentTextField.attr("name")]),
-
-        textfieldError =! currentTextFieldContent.match(currentRegExp);
-
-        currentTextField.toggleClass("b-textfield_error", textfieldError);
-
-        console.log( $(event.target).attr("class"));
-       return textfieldError;
-    }
+  };
+  xhr.send(json);
+  alert('Your data has been sent!');
 }
-let f = new FormChecker("#form1");
-console.log(f.sSelector);
-
-// class getFormValue{
-//     constructor(){
-
-//     }
-// }
-
-// class FackeAPI {
-//     constructor(reqAnswer,name,email,phone_number,address,about_me,country_id,state_id,city_id,){
-//         this.reqAnswer = reqAnswer;
-//         this.name = name;
-//         this.email = email;
-//         this.phone_number = phone_number;
-//         this.address = address;
-//         this.about_me = about_me;
-//         this.country_id = country_id;
-//         this.state_id = state_id;
-//         this.city_id = city_id; 
-//     }
-//     getUser(){
-//         const oReq = new XMLHttpRequest();
-//         oReq.addEventListener("load", reqListener);
-//         oReq.open("GET", "http://localhost:3000/users");
-//         oReq.send();
-
-//         function reqListener () {
-//             console.log("result:", JSON.parse(this.responseText)); // responseText -- текст ответа.
-//             if (oReq.status !== 200) {
-//                 // обработать ошибку
-//                 console.log( "Error ",oReq.status + ': ' + oReq.statusText ); // пример вывода: 404: Not Found
-//               } else {
-//                 // вывести результат
-//                 this.reqAnswer = this.responseText;
-//                 console.log('Response Text', oReq.responseText ); // responseText -- текст ответа.
-//             }
-//           }
-//     }
-// }
-// let newUser = new FackeAPI();
-// newUser.getUser();
-// console.log(newUser.reqAnswer);

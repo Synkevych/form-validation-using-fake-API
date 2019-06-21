@@ -1,93 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Temy Test Environment</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel='stylesheet' href='./css/style.css'>
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="center-block" style="text-align: center;">
+        Hello it's Roman, please fill this form!
+      </h1>
+    </header>
     <div class="container">
-        <h1 class="center-block" style="text-align: center;">Hello guys, we ready to show you some magic!</h1>
-        <div class='b-form__message b-form__message_error'>
-                Форма заполнена неверно!
-                </div>
-        <form class="form-horizontal" role="form" id="form1">
-            <h2 class="center-block" style="text-align: center;">Registration</h2>
-            <div class="form-group">
-                <label for="firstName" class="col-sm-3 control-label">Name* </label>
-                <div class="col-sm-9">
-                    <input type="text" id="firstName" placeholder="Name" class="form-control" autofocus>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email" class="col-sm-3 control-label">Email* </label>
-                <div class="col-sm-9">
-                    <input type="email" id="email" placeholder="Email" class="form-control" name= "email">
-                </div>
-            </div>
-            <div class="form-group">
-                    <label for="countries" class="col-sm-3 control-label">Coutry* </label>
-                <div class="col-sm-9">
-                    <select id="countries" placeholder="Please write your height in centimetres" class="form-control" required>
-                        <option selected>Choose...</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                    <label for="states" class="col-sm-3 control-label">State* </label>
-                <div class="col-sm-9">
-                    <select id="states" class="form-control">
-                      <option selected>Choose...</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                    <label for="cities" class="col-sm-3 control-label">City* </label>
-                <div class="col-sm-9">
-                    <select name="cities" id="cities" placeholder="Please choose your city." class="form-control">
-                        <option selected>Choose...</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                    <label for="phoneNumber" class="col-sm-3 control-label">Phone number*</label>
-                    <div class="col-sm-9">
-                        <input type="phoneNumber" id="phoneNumber" placeholder="Phone number" class="form-control">
-                        <span class="help-block">Your phone number won't be disclosed anywhere </span>
-                    </div>
-            </div>
-            <div class="form-group">
-                    <label for="text" class="col-sm-3 control-label">Address </label>
-                    <div class="col-sm-9">
-                        <input type="text" id="address" placeholder="Address" class="form-control" name= "address">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="text" class="col-sm-3 control-label">About </label>
-                    <div class="col-sm-9">
-                        <textarea  rows="5" type="text" id="about" placeholder="About" class="form-control" name= "about"></textarea>
-                    </div>
-                </div>
-            <!-- /.form-group -->
-            <div class="form-group">
-                <div class="col-sm-9 col-sm-offset-3">
-                    <span class="help-block">*Required fields</span>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-9 col-sm-offset-3">
-                    <button type="submit" class="btn btn-primary btn-block form-control">Register</button>
-                </div>
+      <form class="form-horizontal" role="form" id="form1">
+        <h2 class="center-block" style="text-align: center;">
+          Registration form
+        </h2>
+        <div class="form-group">
+          <label for="firstName" class="col-sm-3 control-label">Name* </label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              name="name"
+              pattern="[A-Za-z\s]{1,500}"
+              id="name"
+              placeholder="Name"
+              class="form-control"
+              title="Only English letter!"
+              autofocus
+              required
+            />
+          </div>
         </div>
-        </form> <!-- /form -->
-    </div> <!-- ./container -->
-   <script src="./js/script.js"></script>
-   <script>
- //       let f1 = new FormChecker("#form1");
-   </script>
-</body>
+        <div class="form-group">
+          <label for="email" class="col-sm-3 control-label">Email* </label>
+          <div class="col-sm-9">
+            <input
+              name="email"
+              type="email"
+              id="email"
+              placeholder="Email"
+              class="form-control"
+              pattern="[^@]+@[^.]+..+"
+              title="Enter a valid email address"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="countries" class="col-sm-3 control-label">Coutry* </label>
+          <div class="col-sm-9">
+            <select
+              id="countries"
+              name="country_id"
+              placeholder="Please write your height in centimetres"
+              class="form-control"
+              required
+            >
+              <option selected disabled="disabled" value="">Choose...</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="states" class="col-sm-3 control-label">State* </label>
+          <div class="col-sm-9">
+            <select id="states" name="state_id" class="form-control" required>
+              <option selected disabled="disabled" value="">Choose...</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cities" class="col-sm-3 control-label">City* </label>
+          <div class="col-sm-9">
+            <select
+              name="city_id"
+              id="cities"
+              placeholder="Please choose your city."
+              class="form-control"
+              required
+            >
+              <option disabled="disabled" selected value="">Choose...</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="tel" class="col-sm-3 control-label">Phone number*</label>
+          <div class="col-sm-9">
+            <input
+              type="tel"
+              name="phone_number"
+              id="tel"
+              placeholder="Phone number"
+              class="form-control"
+              pattern="[0-9]{10,12}"
+              title="Ten or twelve digit only!"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="address" class="col-sm-3 control-label">Address </label>
+          <div class="col-sm-9">
+            <input
+              name="address"
+              type="text"
+              id="address"
+              placeholder="Address"
+              class="form-control"
+              pattern="[\W\w\d\s]{0,500}"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="about_me" class="col-sm-3 control-label">About </label>
+          <div class="col-sm-9">
+            <textarea
+              name="about_me"
+              rows="5"
+              type="text"
+              id="about_me"
+              placeholder="About"
+              class="form-control"
+              pattern="[\W\w\d\s]{0,500}"
+              name="about"
+              title="Only 500 characters are available!"
+            ></textarea>
+          </div>
+        </div>
+        <!-- /.form-group -->
+        <div class="form-group">
+          <div class="col-sm-9 col-sm-offset-3">
+            <span class="help-block">*Required fields</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-9 col-sm-offset-3">
+            <input
+              type="submit"
+              class="btn btn-primary btn-block form-control"
+              value="Register"
+            />
+          </div>
+        </div>
+      </form>
+      <!-- /form -->
+    </div>
+    <!-- ./container -->
+    <script src="./js/script.js"></script>
+    <script>
+      //       let f1 = new FormChecker("#form1");
+    </script>
+  </body>
 </html>
