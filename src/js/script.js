@@ -65,7 +65,7 @@ function formChecker(elem) {
       let selectValue = elem[i][elem[i].selectedIndex].text;
 
       if (elem[i][elem[i].selectedIndex].value > 0) {
-        formData[nameElem] = selectValue;
+        formData[nameElem] = elem[i][elem[i].selectedIndex].value;
       } else {
         elem[i].classList.add('error');
         elem[i].focus();
@@ -74,12 +74,13 @@ function formChecker(elem) {
     }
   }
   formData.createdAt = new Date().getTime();
-  formData.id = +lacation.users.length+1;
+  formData.id = +lacation.users.length+1 + "";
   return formData;
 }
 
 submit[0].addEventListener('click', function(evt) {
   evt.preventDefault();
+ // console.log(user)
   if (!!formChecker(formsElement)) {
     sendUsers(formChecker(formsElement), apiUrl + 'users');
   }
