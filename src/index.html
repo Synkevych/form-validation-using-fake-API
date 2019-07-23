@@ -1,169 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Temy Test Environment</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./css/style.css" />
-  </head>
-  <body>
-    <div>
-      <a href="./users.html">View all user</a>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Temy Test Environment</title>
+  <!-- Bootstrap core CSS -->
+  <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./css/cover.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
+  <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https:///maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="site-wrapper">
+    <div class="site-wrapper-inner">
+      <div class="cover-container">
+        <div class="inner">
+          <div class="inner cover ">
+            <h4 class="masthead-brand">Temy Test Environment</h4>
+            <nav>
+              <ul class="masthead-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="./users.html">View all user</a></li>
+                <li><a href="#">About</a></li>
+              </ul>
+            </nav>
+
+          </div>
+        </div>
+        <div class="inner cover">
+          <h3 class="font-weight-light">
+            Hello it's Roman, please fill this form then click submit and go to "View all user" to check the task.
+          </h3>
+
+          <div class="lead">
+              <h3>Registration <span>Form</span></h3>
+          <!-- /form -->
+            <form role="form" id="contact-form">
+              <!-- name field -->
+              <div class="form-group">
+                <div id="nameError" class="sr-only" role="alert"></div>
+                <label for="form-name-field" class="sr-only">Name*</label>
+                <div class="input-group">
+                  <label class="input-group-addon" for="firstName" class="col-sm-3 control-label">Name* </label>
+                  <input class="form-control mb-4" type="text" name="name" pattern="[A-Za-z\s]{1,500}" id="name"
+                    placeholder="Your name" class="form-control" title="Only English letter!" autofocus required />
+                </div>
+              </div>
+              <!-- email field -->
+              <div class="form-group">
+                <label for="form-email-field" class="sr-only">Email*</label>
+                <div class="input-group">
+                  <label class="input-group-addon" for="email" class="col-sm-3 control-label">Email* </label>
+                  <input name="email" type="email" id="email" placeholder="Email" class="form-control"
+                    pattern="[^@]+@[^.]+..+" title="Enter a valid email address" required />
+                </div>
+              </div>
+              <!-- country field -->
+              <div class="form-group">
+                <label for="form-email-field" class="sr-only">Email*</label>
+                <div class="input-group">
+                  <label class="input-group-addon" for="countries" class="col-sm-3 control-label">Coutry* </label>
+                  <select id="countries" name="country_id" class="form-control" required>
+                    <option selected disabled="disabled" value="">Choose coutry...</option>
+                  </select>
+                </div>
+              </div>
+              <!-- state field -->
+              <div class="form-group">
+                <div class="input-group">
+                  <label class="input-group-addon" for="states" class="col-sm-3 control-label">State* </label>
+                  <select id="states" name="state_id" class="form-control" required>
+                    <option selected disabled="disabled" value="">Choose...</option>
+                  </select>
+                </div>
+              </div>
+              <!-- city field -->
+              <div class="form-group">
+                <div class="input-group">
+                  <label class="input-group-addon" for="cities" class="col-sm-3 control-label">City* </label>
+                  <select name="city_id" id="cities" placeholder="Please choose your city." class="form-control"
+                    required>
+                    <option disabled="disabled" selected value="">Choose...</option>
+                  </select>
+                </div>
+              </div>
+              <!-- phone field -->
+              <div class="form-group">
+                <div class="input-group">
+                  <label class="input-group-addon" for="tel">Phone*</label>
+                  <input type="tel" name="phone_number" id="tel" placeholder="Phone number" class="form-control"
+                    pattern="[0-9]{10,12}" title="Ten or twelve digit only!" required />
+                </div>
+              </div>
+              <!-- address field -->
+              <div class="form-group">
+                <div class="input-group">
+                  <label class="input-group-addon" for="address" class="col-sm-3 control-label">Address </label>
+                  <input name="address" type="text" id="address" placeholder="Address" class="form-control"
+                    pattern="[\W\w\d\s]{0,500}" />
+                </div>
+              </div>
+              <!-- about field -->
+              <div class="form-group">
+                <div class="input-group">
+                  <label class="input-group-addon" for="about_me" class="col-sm-3 control-label">About </label>
+                  <textarea name="about_me" rows="5" type="text" id="about_me" placeholder="About" class="form-control"
+                    pattern="[\W\w\d\s]{0,500}" name="about" title="Only 500 characters are available!"></textarea>
+                </div>
+              </div>
+              <input type="submit" class="btn btn-primary btn-block form-control" value="Register" />
+            </form>
+          </div>
+        </div>
+        <!-- ./container -->
+
+      </div>
     </div>
-    <header class="header">
-      <h3 class="center-block" style="text-align: center;">
-        Hello it's Roman, please fill this form to check the task.
-      </h3>
-    </header>
-    <div class="container">
-      <form class="form-horizontal" role="form" id="form1">
-        <h3 class="center-block" style="text-align: center;">
-          Registration form
-        </h3>
-        <br>
-        <div class="form-group">
-          <label for="firstName" class="col-sm-3 control-label">Name* </label>
-          <div class="col-sm-9">
-            <input
-              type="text"
-              name="name"
-              pattern="[A-Za-z\s]{1,500}"
-              id="name"
-              placeholder="Name"
-              class="form-control"
-              title="Only English letter!"
-              autofocus
-              required
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="email" class="col-sm-3 control-label">Email* </label>
-          <div class="col-sm-9">
-            <input
-              name="email"
-              type="email"
-              id="email"
-              placeholder="Email"
-              class="form-control"
-              pattern="[^@]+@[^.]+..+"
-              title="Enter a valid email address"
-              required
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="countries" class="col-sm-3 control-label">Coutry* </label>
-          <div class="col-sm-9">
-            <select
-              id="countries"
-              name="country_id"
-              placeholder="Please write your height in centimetres"
-              class="form-control"
-              required
-            >
-              <option selected disabled="disabled" value="">Choose...</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="states" class="col-sm-3 control-label">State* </label>
-          <div class="col-sm-9">
-            <select id="states" name="state_id" class="form-control" required>
-              <option selected disabled="disabled" value="">Choose...</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="cities" class="col-sm-3 control-label">City* </label>
-          <div class="col-sm-9">
-            <select
-              name="city_id"
-              id="cities"
-              placeholder="Please choose your city."
-              class="form-control"
-              required
-            >
-              <option disabled="disabled" selected value="">Choose...</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="tel" class="col-sm-3 control-label">Phone number*</label>
-          <div class="col-sm-9">
-            <input
-              type="tel"
-              name="phone_number"
-              id="tel"
-              placeholder="Phone number"
-              class="form-control"
-              pattern="[0-9]{10,12}"
-              title="Ten or twelve digit only!"
-              required
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="address" class="col-sm-3 control-label">Address </label>
-          <div class="col-sm-9">
-            <input
-              name="address"
-              type="text"
-              id="address"
-              placeholder="Address"
-              class="form-control"
-              pattern="[\W\w\d\s]{0,500}"
-            />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="about_me" class="col-sm-3 control-label">About </label>
-          <div class="col-sm-9">
-            <textarea
-              name="about_me"
-              rows="5"
-              type="text"
-              id="about_me"
-              placeholder="About"
-              class="form-control"
-              pattern="[\W\w\d\s]{0,500}"
-              name="about"
-              title="Only 500 characters are available!"
-            ></textarea>
-          </div>
-        </div>
-        <!-- /.form-group -->
-        <div class="form-group">
-          <div class="col-sm-9 col-sm-offset-3">
-            <span class="help-block">*Required fields</span>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-9 col-sm-offset-3">
-            <input
-              type="submit"
-              class="btn btn-primary btn-block form-control"
-              value="Register"
-            />
-          </div>
-        </div>
-      </form>
-      <!-- /form -->
-    </div>
-    <!-- ./container -->
-    <script src="./js/script.js"></script>
-    <script>
+  </div>
+  <script src="./js/script.js"></script>
+  <script>
       //       let f1 = new FormChecker("#form1");
-    </script>
-  </body>
+  </script>
+</body>
 </html>

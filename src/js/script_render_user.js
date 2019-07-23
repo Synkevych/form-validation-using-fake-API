@@ -30,6 +30,7 @@ function getStates(tagName) {
 //      console.log("root",root);
       root.innerHTML +=
       `<div class="${user}">
+        <hr>
         <p>Name: ${user.name}</p>
         <p>Email: ${user.email}</p>
         <p>Phone: ${user.phone_number}</p>
@@ -38,7 +39,6 @@ function getStates(tagName) {
         <p>City: ${user.city_id}</p>
         <p>Addres: ${user.address}</p>
         <p>About: ${user.about_me}</p>
-        <hr>
       </div>`;
 
   }
